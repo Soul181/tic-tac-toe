@@ -10,7 +10,7 @@
 	var random_cell = 0; // число для рандома
 	var reset = document.getElementById('reset'); // переменная хранит id поля reset
 	var area = document.getElementById('area'); // переменная хранит id поля area
-	
+	var winner = false; // есть ли победитель - состояние
 	if (area && result_is == '') {area.addEventListener('click', user_move);} //
 	if (reset) {reset.addEventListener('click', reset_game);}  //
 	
@@ -29,7 +29,7 @@
 			simvol = 'X'; // для передачи в функцию проверки
 			who_score = 'score_user' // для передачи в функцию проверки
 			check_winner();
-			if (move < 9) {pc_move();} // девятый ход в любом случае сделает игрок
+			if (move < 9 && winner == false) {pc_move();} // девятый ход в любом случае сделает игрок
 			}
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -64,9 +64,10 @@
 			all_mass[0]==simvol && all_mass[4]==simvol && all_mass[8]==simvol || 
 			all_mass[2]==simvol && all_mass[4]==simvol && all_mass[6]==simvol ) 
 			{
+			winner = true; // победитель есть
 			area.removeEventListener('click', user_move); // удаляем прослушиватель чтобы не нажимать на поле    
-			if (simvol == 'X') {result_is = 'PLAYER is WIN!'; score_user++; score = "Player "+score_user;  }// ЕСЛИ пришли в эту функцию после хода пользователя, крестик
-			if (simvol == 'O') {result_is = 'PC is WIN!'; score_pc++; score = "PC "+score_pc;  } // ЕСЛИ пришли в эту функцию после хода компьютера, нолик
+			if (simvol == 'X') {result_is = 'Игрок победил!'; score_user++; score = 'Игрок '+score_user;  }// ЕСЛИ пришли в эту функцию после хода пользователя, крестик
+			if (simvol == 'O') {result_is = 'Компьютер победил!'; score_pc++; score = 'Компьютер '+score_pc;  } // ЕСЛИ пришли в эту функцию после хода компьютера, нолик
 // console.log(simvol); 
 // console.log(score);
 			output_result(); // функция вывод результатов
@@ -75,8 +76,8 @@
 						{
 // console.log(' НИЧЬЯ ');
 						score_draw++; // подсчет счета НИЧЬЯ
-						score = "Draw "+score_draw; // для вывода результатов сколько очков
-						result_is = 'Draw'; // для вывода результатов Кто победил
+						score = 'Ничья '+score_draw; // для вывода результатов сколько очков
+						result_is = 'Ничья'; // для вывода результатов Кто победил
 						who_score = 'score_draw'; // куда выводить
 						output_result(); // функция вывод результатов
 						}
@@ -91,10 +92,11 @@
 			image=document.getElementById(k); // переменная с индексом массива
 			image.src='none.jpg'; // вывод картинки без знака в ячейку по индексу
 			}
-		document.getElementById('out').innerHTML = "Who win?"; // общая надпись кто победил?
-		document.getElementById('score_user').innerHTML = "Player "+score_user; // сохраняю очки пользователя
-		document.getElementById('score_pc').innerHTML = "PC "+score_pc; // сохраняю очки компьютера
-		document.getElementById('score_draw').innerHTML = "Draw "+score_draw; // сохраняю очки компьютера
+		winner = false; // сброс состояния переменной. есть ли победитель.
+		document.getElementById('out').innerHTML = 'Кто победит?'; // общая надпись кто победил?
+		document.getElementById('score_user').innerHTML = 'Игрок '+score_user; // сохраняю очки пользователя
+		document.getElementById('score_pc').innerHTML = 'Компьютер '+score_pc; // сохраняю очки компьютера
+		document.getElementById('score_draw').innerHTML = 'Ничья '+score_draw; // сохраняю очки компьютера
 		move = 0;	// обнуляю номер хода
 		area.addEventListener('click', user_move); // добавляю прослушиватель события
 // console.log(' Очистка поля ');
