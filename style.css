@@ -4,9 +4,9 @@ body {
 	min-width: 400px;	
 }
 
-
 .head {
 	text-align: center;
+	margin-top: -10px;
 }
 
 .area-wrapper {
@@ -16,6 +16,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	box-sizing: border-box;
+	margin-top: 5px;
 }
 
 #area {
@@ -40,5 +41,10 @@ body {
 
 .result {
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 5px;
+}
+
+.radio {
+	text-align: center;
+	margin-top: 5px;
 }
