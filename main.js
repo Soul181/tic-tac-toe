@@ -32,6 +32,7 @@
 		if (document.getElementById('mode_2').checked) {pc_move_medium();}
 		if (document.getElementById('mode_3').checked) {pc_move_hard();}
 		}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function pc_move_medium()  // medium
 	{
