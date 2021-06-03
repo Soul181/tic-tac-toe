@@ -41,6 +41,7 @@
 		if (random_move == 0){ pc_move_low(); } else
 		if (random_move == 1){ pc_move_hard(); }
 	}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function pc_move_hard()  // hard 
 	{
@@ -194,6 +195,7 @@
 																			} 
 																		}			
 	}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function user_move () 
 		{
@@ -212,6 +214,7 @@
 			if (move < 9 && winner == false) {pc_move();} // девятый ход в любом случае сделает игрок
 			}
 		}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function pc_move_low() // LOW
 		{
@@ -228,6 +231,7 @@
 			check_winner();
 			} 
 		}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function check_winner() 
 		{
@@ -258,6 +262,7 @@
 						}
 					}
 		}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function sleep(millis) {
 		var t = (new Date()).getTime();
@@ -265,7 +270,8 @@
 		while (((new Date()).getTime() - t) < millis) {
 			w++;
 		}
-	}		
+	}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	function reset_game() 
 		{ 
@@ -283,6 +289,7 @@
 		move = 0;	// обнуляю номер хода
 		area.addEventListener('click', user_move); // добавляю прослушиватель события
 		}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function output_result() 
 		{
@@ -290,233 +297,3 @@
 		document.getElementById(who_score).innerHTML = score;
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-/*
-
-   конец
-   
-   
-   
-	function pc_move() // LOW
-		{
-		do {random_cell = Math.floor(Math.random() * (10 - 1)) + 1;} while (all_mass[random_cell-1] != 'N'); // рандом число свободной ячейки
-		
-		if (all_mass[random_cell-1] == 'N') // если победителя еще нет, то
-			{
-			move++;	// инкремент номера хода
-			all_mass[random_cell-1] = 'O'; // записали значение O в массив по позиции
-			document.getElementById(random_cell).src='O.jpg'; // в эту ячейку рисуем нужную картинку
-			simvol = 'O';
-			who_score = 'score_pc';
-			check_winner();
-			} 
-		}
-
-
-								var win_mass = [[all_mass[0],all_mass[1],all_mass[2]], // массив с перечнем совпадений, каждый элемент - это номер ячейки поля.
-												[all_mass[3],all_mass[4],all_mass[5]],
-												[all_mass[6],all_mass[7],all_mass[8]],
-												[all_mass[0],all_mass[3],all_mass[6]],
-												[all_mass[1],all_mass[4],all_mass[7]],
-												[all_mass[2],all_mass[5],all_mass[8]],
-												[all_mass[0],all_mass[4],all_mass[8]],
-												[all_mass[2],all_mass[4],all_mass[6]]];
-
-								var win_mass = [[0,1,2], // массив с перечнем совпадений, каждый элемент - это номер ячейки поля.
-												[3,4,5],
-												[6,7,8],
-												[0,3,6],
-												[1,4,7],
-												[2,5,8],
-												[0,4,8],
-												[2,4,6]];
-
-
-
-	//{
-			//for (var j=0; j<=2; j++)
-			//{
-				//if (all_mass[win_mass[i][j]] == 'X') {found++;}	// если в последовательности нашли X, то считаем их количество
-			//}
-		//}	
-
-
-
-for (var i=0; i<=7; i++) // проверка 2 из 3
-								{
-									for (var j=0; j<=2; j++)
-									{
-										if (all_mass[win_mass[i][j]-1] == 'X' && all_mass[win_mass[i][j]-1] != 'O') 
-											{
-												found++; 
-												console.log('печать found '+found); 
-												var num_win_mass = i; // номер вложенного массива из массива совпадений
-											}	// если в последовательности нашли X, то считаем их количество
-									}
-									if (found_X != 2) 
-										{	
-										j=0; // обнуляем
-										found = 0; // обнуляем
-										}
-								}
-////////////////////////////////////////////////////////////////////////////////////////
-									console.log('i = '+i);
-									console.log('j = '+j);
-									
-									if (found_X == 2) // если их равно 2, то  в цикле меняем третий символ на НОЛИК, тем самым не даём крестику выйграть
-									{
-										for (j=0; j<=2; j++)
-										{
-											if (all_mass[win_mass[i][j]-1] != 'X' && all_mass[win_mass[i][j]-1] == 'N')
-											{
-												//var num_win_mass = i; // номер вложенного массива из массива совпадений
-												var pos_new_o = [win_mass[i][j]]; // позиция 
-												var match = true; // говорим о том, что 2 из 3 были найдены и обезврежены
-												all_mass[win_mass[i][j]] = 'O'; // меняем символ в массиве ячеек
-													move++;	// инкремент номера хода
-													document.getElementById(pos_new_o-1).src='O.jpg'; // в эту ячейку рисуем нужную картинку
-													simvol = 'O';
-													who_score = 'score_pc';
-													var match = false; // сброс состояния переменной
-													i = 8; // для выхода из основого цикла
-											}
-										}
-											//win_mass[i] = 0; // говорим о том,что эта последовательность удалена (обезврежена)
-									}
-									//break;	
-								 
-									if (found_X == 2)
-									{	
-									found_X = 0; // обнуляем кол-во совпадений 
-									check_winner(); 
-									}
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
-		
-		// console.log('рандомное число '+random_cell);
-		// console.log('нажали ячейку '+random_cell); // вывод позиции ячейки
-// console.log('pc нажал на '+random_cell);
-// console.log('порядковый номер хода (pc сделал ход) '+random_cell);
-// console.log('сообщение после пк');
-		
-		
-		//console.log('нажали ячейку '+cell); // вывод позиции ячейки
-//console.log('юзер нажал на '+cell);
-//console.log('порядковый номер хода (юзер сделал ход) '+cell);
-
-
-		рабочая функция рандом заполнения (наверно самый легкий уровень)
-		сложный уровень, это алгоритм просчета следущего шага
-		средний, получается, среднее между легким и средним. наверно это будет 
-		рандомный вызов либо легкого либо сложного решения во время хода пк.
-		
-		написать функцию сложного уровня и протестировать
-		написать выбор уровня через кнопки на сайте
-		
-	
-			if(e.target.className = 'box' && move <= 9)
-				{ // если нажали по какой-то ячейке, то						
-				switch (e.target.id) 	{
-										  case '1':
-											user_move();
-											break;				
-										  case '2':
-											user_move();
-											break;
-										  case '3':
-											user_move();
-											break;
-										  case '4':
-											user_move();
-											break;
-										  case '5':
-											user_move();
-											break;
-										  case '6':
-											user_move();
-											break;
-										  case '7':
-											user_move();
-											break;
-										  case '8':
-											user_move();
-											break;
-										  case '9':
-											user_move();
-											break;
-										}	
-
-	function user_move() {
-						// добавить проверку своего нажатия
-							
-							while (all_mass[e.target.id-1] == 'N') 
-									{
-									all_mass[e.target.id-1] = view; // записали значение в массив по позиции
-									console.log('Press-'+e.target.id); // вывод позиции ячейки
-									var image=document.getElementById(e.target.id); // возвращает ссылку на элемент
-									
-										image.src=imgs[i]; // в эту позицию выводим нужную картинку
-										console.log(e.target.id+'юзер нажал');
-										console.log(move+'номер хода общий юзер сделал ход');
-										move++; 
-									
-									break;
-									}
-								if (all_mass[0]==view && all_mass[1]==view && all_mass[2]==view || 
-									all_mass[3]==view && all_mass[4]==view && all_mass[5]==view || 
-									all_mass[6]==view && all_mass[7]==view && all_mass[8]==view || 
-									all_mass[0]==view && all_mass[3]==view && all_mass[6]==view || 
-									all_mass[1]==view && all_mass[4]==view && all_mass[7]==view || 
-									all_mass[2]==view && all_mass[5]==view && all_mass[8]==view || 
-									all_mass[0]==view && all_mass[4]==view && all_mass[8]==view || 
-									all_mass[2]==view && all_mass[4]==view && all_mass[6]==view) 
-										{
-										winner = document.getElementById('out').innerHTML = "PLAYER is WIN!";
-										score_user++;
-										document.getElementById('score_user').innerHTML = score_user;
-										} else {pc_move();}
-						}
-	 
-	function pc_move()	{
-						while (move < 9) 
-							{
-							
-							var random_cell = Math.floor(Math.random() * (10 - 1)) + 1;
-							if (all_mass[random_cell-1] == 'N') 
-								{
-								var image=document.getElementById(random_cell); // возвращает ссылку на элемент
-								image.src=imgs[y]; // в эту позицию выводим нужную картинку
-								all_mass[random_cell-1] = view2;
-								console.log(random_cell+'рандом позиция');
-								console.log(move+'номер хода общий пк сделал ход');
-								move++;
-								break;
-								}
-							} 
-							if (all_mass[0]==view2 &&all_mass[1]==view2 &&all_mass[2]==view2 || 
-								all_mass[3]==view2 &&all_mass[4]==view2 &&all_mass[5]==view2 || 
-								all_mass[6]==view2 &&all_mass[7]==view2 &&all_mass[8]==view2 || 
-								all_mass[0]==view2 &&all_mass[3]==view2 &&all_mass[6]==view2 || 
-								all_mass[1]==view2 &&all_mass[4]==view2 &&all_mass[7]==view2 || 
-								all_mass[2]==view2 &&all_mass[5]==view2 &&all_mass[8]==view2 || 
-								all_mass[0]==view2 &&all_mass[4]==view2 &&all_mass[8]==view2 || 
-								all_mass[2]==view2 &&all_mass[4]==view2 &&all_mass[6]==view2) 
-									{
-									winner = document.getElementById('out').innerHTML = "PC is WIN!";
-									score_pc++;									
-									document.getElementById('score_pc').innerHTML = score_pc;
-									}	
-						}
-				}						
-			
-							*/
-
-
